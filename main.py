@@ -27,11 +27,11 @@ else:
     word_list = ["aardvark", "baboon", "camel"]
     word = random.choice(word_list)
     word_splitted = list(word)
-    underscores = []
+    underscores = ""
     already_guessed = []
     for letter in word_splitted:
-        underscores.append("_")
-    
+        underscores += "_"
+
     while (start_game == "y" and not game_over):
         print(f"\nYour word is: {underscores}")
     
@@ -43,14 +43,18 @@ else:
     
         if player_guess in already_guessed:
             print("\nTry a new one, you already used this one.")
+            
         elif player_guess in word_splitted:
             already_guessed.append(player_guess)
             print("\nWell done! Nice guess! :)")
             while player_guess in word_splitted:
                 index_of_letter = word_splitted.index(player_guess)
-                underscores[index_of_letter] = player_guess
+                list_of_placeholders = list(underscores)
+                list_of_placeholders[index_of_letter] = player_guess
                 word_splitted[index_of_letter] = "_"
-            print(f"{underscores}")
+                underscores = "".join(list_of_placeholders)
+            print(f"\n{underscores}")
+            
         else:
             already_guessed.append(player_guess)
             print("\nWrong guess! :/")
